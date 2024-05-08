@@ -4,13 +4,16 @@ using UnityEngine;
 public class GameSystem : Singleton<GameSystem>
 {
     public GameObject pawnPrefab;       // 폰 프리팹
-    
-    public List<Pawn> teams = new();    // 팀 목록
-    
+    public RectTransform panel;        // 팀 패널 오브젝트
     
     public string mapPath;      // 맵 정보
     public Transform boardSpace;    // 맵 내 타일 오브젝트
-    public List<BoardCell> cells = new();  // 맵 내 타일들
+    private List<BoardCell> cells = new();  // 맵 내 타일들
+    
+    public int MapLength    // 전체 맵 길이
+    {
+        get { return cells.Count; }
+    }
     
     private new void Awake()
     {
@@ -28,34 +31,24 @@ public class GameSystem : Singleton<GameSystem>
         
         for (int i = 0; i < (cells.Count < dataList.Count ? cells.Count : dataList.Count); i++) 
         {
-            string cellType = dataList[i][(int)DataColumn.Type];
-            cells[i].SetType(cellType);
+            cells[i].title = dataList[i][(int)DataColumn.Title];
+            cells[i].contents = dataList[i][(int)DataColumn.Contents];
         }
         
         Debug.Log("데이터 호출 완료");
     }
 
 
-    /// <summary>
-    /// 새 팀 만들기
-    /// </summary>
-    /// <param name="teamName">팀 이름</param>
-    public void CreateTeam(string teamName)
+    // 셀 값 반환
+    public BoardCell GetCell(int index)
     {
-        // 새 폰 생성
-        GameObject newPawn = Instantiate(pawnPrefab, transform.GetChild(0));
-        Pawn pawn = newPawn.GetComponent<Pawn>();
-        
-        // 폰 초기화
-        pawn.name = teamName;
-        pawn.MovePoint(0);
-        
-        teams.Add(pawn);
+        return cells[index];
     }
 }
 
 
 public enum DataColumn
 {
-    Type,
+    Title,
+    Contents,
 }

@@ -1,18 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BoardCell : MonoBehaviour
 {
     public int index;
-    private string type;
-
-    public void SetType(string Type)
-    {
-        type = Type;
-    }
-
+    
+    // 타일 이벤트
+    [FormerlySerializedAs("type")] public string title;
+    public string contents;
+    
     private void Awake()
     {
         index = transform.GetSiblingIndex();
