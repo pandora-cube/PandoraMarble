@@ -25,7 +25,6 @@ public class OrbitZoomPanCamera : MonoBehaviour {
 	void Awake()
 	{
 		CalculateOrigin();
-		originReference = null;
 	}
 
 	void Update () 
