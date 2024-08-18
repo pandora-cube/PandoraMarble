@@ -15,6 +15,8 @@ public class TeamPanel : MonoBehaviour
     public TMP_Text starCount;       // 현재 위치 카운트
     public TMP_Text nameUI;         // 이름 UI
 
+    public dice Dice;
+
     
     // 위치 정보 갱신
     private void Update()
@@ -51,6 +53,15 @@ public class TeamPanel : MonoBehaviour
         pawn.SetName(teamName);
     }
 
+    public void MovePawn(int cnt)
+    {
+        pawn.MovePoint(pawn.currentPos + cnt);
+    }
+
+    public void CheckCell()
+    {
+        pawn.ShowInfo();
+    }
     
     // 이름 설정
     public void SetName()

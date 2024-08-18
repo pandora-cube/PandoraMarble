@@ -1,5 +1,6 @@
 public abstract class CellAction
 {
+    public Pawn pawn;
     public string param1;
     public string param2;
 
@@ -21,6 +22,6 @@ public class MoveAction : CellAction
 {
     public override void Invoke()
     {
-        
+        pawn.MovePoint(int.Parse(param2), int.Parse(param1));
     }
 }

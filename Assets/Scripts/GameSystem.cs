@@ -17,6 +17,15 @@ public class GameSystem : Singleton<GameSystem>
     // 셀 값 반환
     public BoardCell GetCell(int area, int index)
     {
+        while (index >= Areas[area].cells.Count)
+        {
+            index -= Areas[area].cells.Count;
+        }
+
+        if (index < 0)
+        {
+            index += Areas[area].cells.Count;
+        }
         return Areas[area].cells[index];
     }
 }

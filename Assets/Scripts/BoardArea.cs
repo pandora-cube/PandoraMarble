@@ -27,12 +27,9 @@ public class BoardArea : MonoBehaviour
         {
             cells[i].title = dataList[i][(int)DataColumn.Title];
             cells[i].contents = dataList[i][(int)DataColumn.Contents];
-            cells[i].action = CellAction.GetAction(dataList[i][(int)DataColumn.Action]);
-            if (cells[i].action != null)
-            {
-                cells[i].action.param1 = dataList[i][(int)DataColumn.Param1];
-                cells[i].action.param2 = dataList[i][(int)DataColumn.Param2];
-            }
+            cells[i].action = dataList[i][(int)DataColumn.Action];
+            cells[i].param1 = dataList[i][(int)DataColumn.Param1];
+            cells[i].param2 = dataList[i][(int)DataColumn.Param2];
         }
     }
 }

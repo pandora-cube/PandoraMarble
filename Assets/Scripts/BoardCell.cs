@@ -6,12 +6,14 @@ public class BoardCell : MonoBehaviour
 {
     public int index;
     public bool nameSort = true;
-    [CanBeNull] public CellAction action;
+    public string action = "";
+    public string param1;
+    public string param2;
     
     // 타일 이벤트
     public string title;
     public string contents;
-    
+
     private void Awake()
     {
         index = transform.GetSiblingIndex();
