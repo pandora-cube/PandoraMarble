@@ -18,7 +18,7 @@ public class InfoPanel : Singleton<InfoPanel>
         Accept.gameObject.SetActive(false);
         Panel.SetActive(true);
 
-        if (cell.action != null)
+        if (!string.IsNullOrEmpty(cell.action))
         {
             CellAction newAction = CellAction.GetAction(cell.action);
             newAction.pawn = pawn;
@@ -26,6 +26,7 @@ public class InfoPanel : Singleton<InfoPanel>
             newAction.param2 = cell.param2;
             
             Accept.gameObject.SetActive(true);
+            Accept.onClick.RemoveAllListeners();
             Accept.onClick.AddListener(newAction.Invoke);
         }
     }

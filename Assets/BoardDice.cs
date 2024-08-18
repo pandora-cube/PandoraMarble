@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
-public class dice : MonoBehaviour
+public class BoardDice : MonoBehaviour
 {
     public int[] num = new int[6];
     public float ranMin;

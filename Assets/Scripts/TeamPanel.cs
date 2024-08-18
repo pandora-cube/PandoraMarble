@@ -7,7 +7,6 @@ public class TeamPanel : MonoBehaviour
 {
     public string teamName = "";    // 팀명
     private int currentPoint = 0;      // 현재 위치
-    public int star = 0;
 
     private Pawn pawn = null;       // 말 오브젝트
 
@@ -15,13 +14,14 @@ public class TeamPanel : MonoBehaviour
     public TMP_Text starCount;       // 현재 위치 카운트
     public TMP_Text nameUI;         // 이름 UI
 
-    public dice Dice;
+    public BoardDice dice;
 
     
     // 위치 정보 갱신
     private void Update()
     {
-        starCount.text = star.ToString();
+        if (pawn)
+            starCount.text = pawn.star.ToString();
     }
 
     
@@ -67,12 +67,5 @@ public class TeamPanel : MonoBehaviour
     public void SetName()
     {
         teamName = nameUI.text;
-    }
-    
-    
-    // 스타 개수 설정
-    public void SetStar(int count = 1)
-    {
-        star += count;
     }
 }

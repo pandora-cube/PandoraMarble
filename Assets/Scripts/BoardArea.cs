@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BoardArea : MonoBehaviour
 {
-    public int index;
     public string mapPath;
     public List<BoardCell> cells;
 

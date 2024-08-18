@@ -12,6 +12,8 @@ public abstract class CellAction
         {
             case "Move":
                 return new MoveAction();
+            case "Star":
+                return new StarAction();
             default:
                 return null;
         }
@@ -23,5 +25,14 @@ public class MoveAction : CellAction
     public override void Invoke()
     {
         pawn.MovePoint(int.Parse(param2), int.Parse(param1));
+    }
+}
+
+public class StarAction : CellAction
+{
+    public override void Invoke()
+    {
+        pawn.AddStar();
+        StarManager.Instance.SetStar();
     }
 }

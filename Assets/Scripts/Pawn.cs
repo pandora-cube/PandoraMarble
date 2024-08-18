@@ -10,6 +10,8 @@ public class Pawn : MonoBehaviour
     public int currentArea;
     public int currentPos;
 
+    public int star = 0;
+
     
     // 이름 설정
     public void SetName(string text)
@@ -23,7 +25,16 @@ public class Pawn : MonoBehaviour
     {
         return GameSystem.Instance.GetCell(currentArea, currentPos);
     }
-    
+
+    public void AddStar()
+    {
+        star++;
+    }
+
+    public void ClearStar()
+    {
+        star = 0;
+    }
     
     // 새 위치로 이동
     public void MovePoint(int Point, int Area = -99)

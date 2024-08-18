@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameSystem : Singleton<GameSystem>
 {
     public GameObject pawnPrefab;       // 폰 프리팹
-    public RectTransform panel;        // 팀 패널 오브젝트
     
     public List<BoardArea> Areas = new();  // 맵 내 타일들
     
