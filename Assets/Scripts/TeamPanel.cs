@@ -11,15 +11,17 @@ public class TeamPanel : MonoBehaviour
     private Pawn pawn = null;       // 말 오브젝트
 
     [Header("UI")] 
-    public TMP_Text runCount;       // 현재 위치 카운트
-    public TMP_InputField newPoint;       // 이동할 새 위치
+    public TMP_Text starCount;       // 현재 위치 카운트
     public TMP_Text nameUI;         // 이름 UI
+
+    public BoardDice dice;
 
     
     // 위치 정보 갱신
     private void Update()
     {
-        runCount.text = currentPoint.ToString();
+        if (pawn)
+            starCount.text = pawn.star.ToString();
     }
 
     
@@ -47,35 +49,19 @@ public class TeamPanel : MonoBehaviour
         pawn = Instantiate(newPawn ).GetComponent<Pawn>();
         
         // 새로운 폰 초기화
-        pawn.MovePoint(0);
+        pawn.MovePoint(0, 0);
         pawn.SetName(teamName);
     }
 
-    
-    // 장소 이동
-    public void MovePosition()
+    public void MovePawn(int cnt)
     {
-        // 폰 미생성시 이동 안함
-        if (pawn == null)
-            return;
-        
-        // 이동할 장소값 파싱
-        if (int.TryParse(newPoint.text, out int newPos) == false)
-        {
-            Debug.Log($"이동할 위치를 숫자로 입력해주세요 : {newPoint.text}");
-            return;
-        }
-
-        // 여러바퀴 값 무시
-        while (GameSystem.Instance.MapLength <= newPos)
-        {
-            newPos -= GameSystem.Instance.MapLength;
-        }
-        
-        pawn.MovePoint(newPos);
-        currentPoint = newPos;
+        pawn.MovePoint(pawn.currentPos + cnt);
     }
 
+    public void CheckCell()
+    {
+        pawn.ShowInfo();
+    }
     
     // 이름 설정
     public void SetName()

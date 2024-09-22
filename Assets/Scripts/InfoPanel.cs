@@ -1,36 +1,33 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InfoPanel : MonoBehaviour
+public class InfoPanel : Singleton<InfoPanel>
 {
-    public TMP_InputField input;        // 타일 번호 입력받기
-
+    public GameObject Panel;
     public TMP_Text title;      // 내용 타이틀
     public TMP_Text contents;   // 내용 상세
+    public Button Accept;
 
 
 
-    public void ShowInfo()
+    public void ShowInfo(Pawn pawn, BoardCell cell)
     {
-        title.text = "";
-        contents.text = "";
-        
-        // 이동할 장소값 파싱
-        if (int.TryParse(input.text, out int newPos) == false)
-        {
-            Debug.Log($"정보를 확인할 위치를 숫자로 입력해주세요 : {input.text}");
-            return;
-        }
-
-        if (newPos < 0 || newPos > GameSystem.Instance.MapLength)
-        {
-            Debug.Log($"위치 오류 : {newPos}");
-            return;
-        }
-
-        BoardCell cell = GameSystem.Instance.GetCell(newPos);
-
         title.text = cell.title;
         contents.text = cell.contents;
+        Accept.gameObject.SetActive(false);
+        Panel.SetActive(true);
+
+        if (!string.IsNullOrEmpty(cell.action))
+        {
+            CellAction newAction = CellAction.GetAction(cell.action);
+            newAction.pawn = pawn;
+            newAction.param1 = cell.param1;
+            newAction.param2 = cell.param2;
+            
+            Accept.gameObject.SetActive(true);
+            Accept.onClick.RemoveAllListeners();
+            Accept.onClick.AddListener(newAction.Invoke);
+        }
     }
 }
