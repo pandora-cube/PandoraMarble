@@ -10,6 +10,7 @@ public class GameSystem : Singleton<GameSystem>
     private new void Awake()
     {
         base.Awake();
+        ConnectToAPI();
     }
 
 
@@ -26,6 +27,22 @@ public class GameSystem : Singleton<GameSystem>
             index += Areas[area].cells.Count;
         }
         return Areas[area].cells[index];
+    }
+
+
+    public void ConnectToAPI()
+    {
+        ScoreboardManager.Instance.GetScores((scores) =>
+        {
+            if (scores != null)
+            {
+                Debug.Log(scores.Count);
+                foreach (var score in scores)
+                {
+                    Debug.Log($"{score.player}: {score.score} in {score.game} on {score.date}");
+                }
+            }
+        });
     }
 }
 
